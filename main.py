@@ -10,7 +10,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-students=[
+marks=[
   {
     "name": "kH4J3EaBsP",
     "marks": 69
@@ -417,8 +417,8 @@ def read_root():
     return {"message": "Hello, World!"}
 
 @app.get("/api")
-async def get_students(name_: Optional[List[str]] = Query(None, alias="name")) -> Dict[str, List[str]]:
-    if class_:
-        filtered_students = [student["marks"] for student in students if student["name"] in name_]
-        return {"marks": filtered_students}
-    return students
+async def get_marks(name_: Optional[List[str]] = Query(None, alias="name")):
+    if name_:
+        filtered_marks = [mark["marks"] for mark in marks if mark["name"] in name_]
+        return {"marks": filtered_marks}
+    return marks
