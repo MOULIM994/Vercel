@@ -417,7 +417,7 @@ def read_root():
     return {"message": "Hello, World!"}
 
 @app.get("/api")
-async def get_students(name_: Optional[List[str]] = Query(None, alias="name")) -> Dict[str, List[Dict[str, int | str]]]:
+async def get_students(name_: Optional[List[str]] = Query(None, alias="name")) -> Dict[str, List[str]]:
     if class_:
         filtered_students = [student["marks"] for student in students if student["name"] in name_]
         return {"marks": filtered_students}
