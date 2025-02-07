@@ -418,10 +418,12 @@ def read_root():
 
 @app.get("/api")
 async def get_marks(name_: Optional[List[str]] = Query(None, alias="name")):
-    try:
-        if name_:
-            filtered_marks = [mark["marks"] for mark in marks if mark["name"] in name_]
-            return {"marks": filtered_marks}
-        return marks
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    if name_:
+        filtered_marks = []
+        for requested_name in name_:
+            for mark in marks:
+                if mark["name"] == requested_name:
+                    filtered_marks.append(mark["marks"])
+                    break
+        return {"marks": filtered_marks}
+    return marks
